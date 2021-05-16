@@ -8,32 +8,25 @@ class Todo
   end
 
   def overdue?
-    overdue = (@due_date < Date.today) ? true : false
+    Date.today > @due_date
   end
 
   def due_date?
-    duedate = (@due_date == Date.today) ? true : false
+    Date.today == @due_date
   end
 
   def due_later?
-    duelater = (@due_date > Date.today) ? true : false
+    Date.today < @due_date
   end
 
   def to_displayable_string
-    line = ""
-    if (@due_date == Date.today - 1)
-      line = (@completed) ? line += "[ ] #{@text} #{@due_date}" : line += "[ ] #{@text} #{@due_date}"
-    elsif (@due_date == Date.today)
-      line = (@completed) ? "[X] #{@text}" : "[ ] #{@text}"
-    else
-      line += "[ ] #{@text} #{@due_date}"
-    end
+    display_status = @completed ? "[X]" : "[ ]"
+    display_date = (@due_date == Date.today) ? "" : @due_date
+    "#{display_status} #{@text} #{display_date}"
   end
 end
 
 class TodosList
-  # attr_accessor :todos
-
   def initialize(todos)
     @todos = todos
   end
@@ -55,9 +48,7 @@ class TodosList
   end
 
   def to_displayable_list
-    arr = []
-    @todos.each { |obj| arr << obj.to_displayable_string }
-    print arr.join("\n")
+    @todos.map { |obj| obj.to_displayable_string }.join("\n")
   end
 end
 
