@@ -43,12 +43,12 @@ class TodosList
     TodosList.new(@todos.filter { |todo| todo.due_later? })
   end
 
-  def add(new_element)
-    @todos << new_element
+  def add(new_todo)
+    @todos << new_todo
   end
 
   def to_displayable_list
-    @todos.map { |obj| obj.to_displayable_string }.join("\n")
+    @todos.map { |todo| todo.to_displayable_string }.join("\n")
   end
 end
 
